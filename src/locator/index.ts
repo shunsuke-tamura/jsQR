@@ -257,7 +257,7 @@ export function locate(matrix: BitMatrix): QRLocation[] {
 
   for (let y = 0; y <= matrix.height; y++) {
     let length = 0;
-    let lastBit = false;
+    let lastBit = false;  // false = white, true = black
     let scans = [0, 0, 0, 0, 0];
 
     for (let x = -1; x <= matrix.width; x++) {
@@ -295,6 +295,9 @@ export function locate(matrix: BitMatrix): QRLocation[] {
           const line = { startX, endX, y };
           // Is there a quad directly above the current spot? If so, extend it with the new line. Otherwise, create a new quad with
           // that line as the starting point.
+          // これもしかして参照渡し的なあれなんか？？？
+          // matchingQuadsこれ何のためにあるんかがわからん
+          // そういうことやった
           const matchingQuads = activeFinderPatternQuads.filter(q =>
             (startX >= q.bottom.startX && startX <= q.bottom.endX) ||
             (endX >= q.bottom.startX && startX <= q.bottom.endX) ||
